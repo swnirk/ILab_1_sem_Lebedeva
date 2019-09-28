@@ -2,8 +2,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-int line ( float b, float c, float* x1);
-int solve_sqr (float a, float b, float c, float* x1, float* x2);
+int line ( float b, float c,const float* x1);
+int solve_sqr (float a, float b, float c, float* x1,const float* x2);
 
 //! what func is do: solves quadratic equations
 //! @param[in] a, b, c, *x1 = x1, *x2 = x2
@@ -88,7 +88,7 @@ int main()
 //! @param[in] b, c, *x1 = x1
 //! @return return 1 if condition is met
 
-int line (float b, float c, float* x1)
+int line (float b, float c,const float* x1)
 {
     if (b == 0) return 0;
 
@@ -116,7 +116,7 @@ int line (float b, float c, float* x1)
 //! @param [in] a, b, c, *x1 = x1, *x2 = x2
 //! @return return 2 if two roots; return 1 if one root; return 0 else
 
-int solve_sqr (float a, float b, float c, float* x1, float* x2)
+int solve_sqr (float a, float b, float c, const float* x1, const float* x2)
 
 {
     // printf("%f %f %f\n\n", a, b, c);
