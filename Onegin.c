@@ -25,23 +25,25 @@ int SizeTxt (FILE* onegin)
 
 }
 
-int CounterLine(char *text, int size){
+int CounterLine(char *maspoem, int longpoem){
     //printf ("1|%d|", size);
-    assert(text);
+    assert(maspoem);
     //printf ("2|%d|", size);
-    int Lines = 0;
-    for (int letter = 0; letter < size; letter++)
+    int count = 0;
+    for (int i = 0; i < longpoem; i++)
     {
-        if (text[letter] == '\n')
-        {
-            if (text[letter + 1] == '\n')
-                text[letter + 1] =' ';
-            Lines++;
-            text[letter] == '\0';
+        int j = 1;
+        if (maspoem[i] == '\n') {
+            while (maspoem[i + j] == '\n')
+            {
+                maspoem[i + j] = ' ';
+                j++;
+            }
+            count++;
         }
     }
 
-    return Lines;
+    return count;
 }
 
 void CreateStrPtrs (char* maspoem, int longpoem, struct string* masptrsstring) {
@@ -53,8 +55,7 @@ void CreateStrPtrs (char* maspoem, int longpoem, struct string* masptrsstring) {
     int j = 0;
     int flag = 1;
     masptrsstring[0].ptrs = maspoem;
-    for (i = 0; i < longpoem; i++) {
-
+    for (i = 0; i < longpoem + 1; i++) {
         if (maspoem[i] == '\n') {
 
             masptrsstring[flag].ptrs = maspoem + i + 1;
@@ -81,7 +82,7 @@ int compare (const void * arg1, const void * arg2) {
     char* ptrs1 = a.ptrs;
     char* ptrs2 = b.ptrs;
 
-    while (*ptrs1 == *ptrs2 && *(ptrs1 + j) && *(ptrs2 + k)) {
+    while (res == 0 && *(ptrs1 + j) != '\0' && *(ptrs2 + k) != '\0' ) {
 
         while (isalpha (*(ptrs1 + j)) == 0) {
             j++;
@@ -111,7 +112,7 @@ int main () {
 
     int longpoem = SizeTxt(onegin);
 
-    printf ("size is %d", longpoem);
+    //printf ("size is %d", longpoem);
 
     char* maspoem = (char*)calloc (longpoem + 1, sizeof (char));
 
@@ -119,15 +120,13 @@ int main () {
 
     for(int i = 0; i < longpoem; i++) {
 
-        printf ("%c", maspoem[i]);
+        //printf ("%c", maspoem[i]);
 
   }
 
    // int numlines = 137;
 
    int  numlines = CounterLine (maspoem, longpoem);
-
-    printf ("numlines is %d|", numlines);
 
     struct string* masptrsstring = (struct string*)calloc (numlines + 1, sizeof (struct string)+1);
 
@@ -138,7 +137,7 @@ int main () {
     FILE * returnonegin = fopen (RETURNTEXT, "w");
 
     for (int q = 0; q < numlines; q++)
-        printf("%s\n", masptrsstring[q].ptrs);
+        fprintf(returnonegin,"%s\n", masptrsstring[q].ptrs);
 
     fclose (returnonegin);
 
