@@ -48,8 +48,8 @@ int CounterLine(char *maspoem, int longpoem){
 
 void CreateStrPtrs (char* maspoem, int longpoem, struct string* masptrsstring) {
 
-    assert (maspoem != NULL);
-    assert (longpoem != NULL);
+    assert (maspoem );
+    assert (longpoem );
 
     int i = 0;
     int j = 0;
